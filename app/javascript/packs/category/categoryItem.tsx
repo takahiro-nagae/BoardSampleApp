@@ -11,7 +11,7 @@ import { CategoryData } from './categoryData';
  ****************************************/
 export const CategoryItem = (props: CategoryData) => {
   // カテゴリ
-  const {category_id, category_name, updateCategories} = props;
+  const {category_id, category_name, updateCategories, loggedInStatus} = props;
   // モーダル
   const [modalIsOpen,setIsOpen] = React.useState(false);
   // カテゴリ名編集
@@ -78,8 +78,13 @@ export const CategoryItem = (props: CategoryData) => {
       <div className='list-group-item d-flex justify-content-between align-items-start'>
         <Link to={'/post/index?category_id=' + category_id +'&category_name=' + category_name} >{category_name}</Link>
         <div>
-          <button className='mx-2 btn btn-primary' onClick={openModal}>編集</button>
-          <button type='button' onClick={deleteCategory} className='mx-2 btn btn-danger'>削除</button>
+          { loggedInStatus &&
+            <>
+              <button className='mx-2 btn btn-primary' onClick={openModal}>編集</button>
+              <button type='button' onClick={deleteCategory} className='mx-2 btn btn-danger'>削除</button>
+            </>
+          }
+
         </div>
       </div>
       <Modal isOpen={modalIsOpen} style={customStyles}>

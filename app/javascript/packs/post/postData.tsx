@@ -24,4 +24,6 @@ export class PostData {
   clientIp: string;
   // 投稿更新
   updatePosts;
+  // ログイン状態
+  loggedInStatus: boolean;
 }

@@ -9,7 +9,7 @@ import { PostData } from './postData';
  * 新規投稿コンポーネント
  ****************************************/
 export const PostForm = (props) => {
-    const {category_id, updatePosts, clientIp} = props;
+    const {category_id, updatePosts, clientIp, loginUser} = props;
 
     // ================================
     // バリデーション設定
@@ -52,12 +52,12 @@ export const PostForm = (props) => {
                 <input type='hidden' name='category_id' value={category_id} />
                 <div className='form-group'>
                     <label htmlFor='name'>名前</label>
-                    <input type='text' className='form-control' id='name' name='name' placeholder='名無し' {...register("name", { maxLength: 256 })}  />
+                    <input type='text' className='form-control' id='name' name='name' placeholder='名無し' {...register("name", { maxLength: 256 })} value={loginUser!= undefined ? loginUser.name : ''} />
                     {errors.name?.types?.maxLength && <span className='text-danger'>名前は256文字以内で入力してください</span>}
                 </div>
                 <div className='form-group'>
                     <label htmlFor='mail'>メールアドレス</label>
-                    <input type='email' className='form-control' id='mail' name='mail' placeholder='aaa@mail.com' {...register("mail", { maxLength: 256 })} />
+                    <input type='email' className='form-control' id='mail' name='mail' placeholder='aaa@mail.com' {...register("mail", { maxLength: 256 })} value={loginUser!= undefined ? loginUser.email : ''} />
                     {errors.mail?.types?.maxLength && <span className='text-danger'>メールアドレスは256文字以内で入力してください</span>}
                 </div>
                 <div className='form-group'>
