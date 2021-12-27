@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :accounts
+
   # ============================
   # 投稿
   # ============================
@@ -32,4 +32,11 @@ Rails.application.routes.draw do
    # -- get --
    # トップページ
   get 'board/index'
+
+  # ============================
+  # 認証
+  # ============================
+  post '/login', to: 'sessions#login'
+  delete '/logout', to: 'sessions#logout'
+  get '/logged_in', to: 'sessions#logged_in?'
 end
