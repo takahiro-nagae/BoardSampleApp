@@ -8,4 +8,6 @@ export class CategoryData {
     category_name: string;
     // カテゴリ一覧更新function
     updateCategories;
+    // ログイン状態
+    loggedInStatus :boolean;
 }

@@ -9,16 +9,14 @@ import { UserData } from './userData';
  * 認証コンポーネント
  ****************************************/
 export const Auth = (props) => {
-    // ログインステータス
-    const [loggedInStatus, setLoggedInStatus] = useState(false);
+    const {loggedInStatus, setLoggedInStatus, user, setUser} = props;
     // モーダル
     const [modalIsOpen,setIsOpen] = React.useState(false);
     // メール
     const [email, setEmail] = useState("");
     // パスワード
     const [password, setPassword] = useState("");
-    // ユーザ情報
-    const [user, setUser] = useState<UserData>();
+
 
 
     // モーダルのスタイル
@@ -114,14 +112,14 @@ export const Auth = (props) => {
                 { loggedInStatus &&
                     <>
                         <span>{user.name}</span>
-                        <span>{user.email}</span>
+                        <span>{user.mail}</span>
                     </>
                 }
             </div>
             { !loggedInStatus && <button type='submit' className='btn btn-success' onClick={openModal}>ログイン</button>}
             { loggedInStatus &&
                     <>
-                        <button type='button' className='btn btn-secondry' onClick={handleLogout}>ログアウト</button>
+                        <button type='button' className='btn btn-secondary' onClick={handleLogout}>ログアウト</button>
                     </>
             }
             <Modal isOpen={modalIsOpen} style={customStyles}>

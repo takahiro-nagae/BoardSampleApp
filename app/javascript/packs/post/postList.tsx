@@ -13,7 +13,9 @@ import { PostForm } from './postForm';
 /****************************************
  * 投稿一覧コンポーネント
  ****************************************/
-export const PostList = () => {
+export const PostList = (props) => {
+    // ユーザ情報
+    const {loggedInStatus, loginUser} = props;
     //投稿のstate
     const [posts, setPosts] = useState<PostData[]>([]);
     const [clientIp, setClientIp] = useState('');
@@ -59,12 +61,12 @@ export const PostList = () => {
                     {posts.map(post => (
                         <PostItem post_id={post.post_id} category_id={post.category_id} ip={post.ip} hide_flag={post.hide_flag}
                             name={post.name} mail={post.mail} subject={post.subject} text={post.text} post_date={post.post_date}
-                             clientIp={clientIp} updatePosts={updatePosts} key={post.post_id} />
+                             clientIp={clientIp} updatePosts={updatePosts} loggedInStatus={loggedInStatus} key={post.post_id} />
                     ))}
                 </ul>
             </div>
             {/* 投稿フォーム */}
-            <PostForm category_id={query['category_id']} updatePosts={updatePosts} clientIp={clientIp} />
+            <PostForm category_id={query['category_id']} updatePosts={updatePosts} clientIp={clientIp} loginUser={loginUser} />
         </div>
     );
 };

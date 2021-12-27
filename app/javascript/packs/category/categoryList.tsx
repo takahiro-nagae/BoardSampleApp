@@ -6,12 +6,14 @@ import axios from 'axios';
 import { CategoryData } from './categoryData';
 import { CategoryItem } from './categoryItem';
 import { CategoryForm } from './categoryForm';
-import { Auth } from '../auth/auth';
+
 
 /****************************************
  * カテゴリ一覧コンポーネント
  ****************************************/
-export const CategoryList = () => {
+export const CategoryList = (props) => {
+    // ユーザ情報
+    const {loggedInStatus} = props;
     // カテゴリのstate
     const [categories, setCategories] = useState<CategoryData[]>([]);
 
@@ -34,15 +36,16 @@ export const CategoryList = () => {
 
     return(
         <>
-            <Auth />
             <div className='my-5 list-group'>
                 {categories.map(category => (
-                    <CategoryItem category_id={category.category_id} category_name={category.category_name} updateCategories={updateCategories} key={category.category_id} />
+                    <CategoryItem category_id={category.category_id} category_name={category.category_name} updateCategories={updateCategories} key={category.category_id} loggedInStatus={loggedInStatus} />
             ))}
             </div>
-            <div className='my-5'>
-                <CategoryForm updateCategories={updateCategories} />
-            </div>
+            { loggedInStatus &&
+                <div className='my-5'>
+                    <CategoryForm updateCategories={updateCategories} />
+                </div>
+            }
         </>
     );
 };

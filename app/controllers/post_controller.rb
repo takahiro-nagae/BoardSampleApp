@@ -4,7 +4,7 @@ class PostController < ApplicationController
 
   def getPostData
     if params['category_id'] != nil then
-      getCategoryPostData(params['category_id'], '0')
+      getCategoryPostData(params['category_id'])
     else
       render plain: [].to_json
     end
@@ -37,7 +37,7 @@ class PostController < ApplicationController
     # ============================
     if postData.save then
       # 更新データの返却
-      getCategoryPostData(params['category_id'], '0')
+      getCategoryPostData(params['category_id'])
     else
       # modelのバリデーション結果を返却
       render json: { errors: postData.errors.keys.map { |key| [key, postData.errors.full_messages_for(key)]}.to_h, render: 'show.json.jbuilder' }, status: :unprocessable_entity
@@ -50,14 +50,14 @@ class PostController < ApplicationController
     # ============================
     if Post.where(category_id: params['category_id'], post_id: params['post_id']).update_all(hide_flag: '1') then
       # 更新データの返却
-      getCategoryPostData(params['category_id'], '0')
+      getCategoryPostData(params['category_id'])
     else
       # modelのバリデーション結果を返却
       render json: { errors: postData.errors.keys.map { |key| [key, postData.errors.full_messages_for(key)]}.to_h, render: 'show.json.jbuilder' }, status: :unprocessable_entity
     end
   end
 
-  def getCategoryPostData(category_id, hide_flag)
-    render plain:  Post.where(category_id: category_id, hide_flag: hide_flag).to_json
+  def getCategoryPostData(category_id)
+    render plain:  Post.where(category_id: category_id).to_json
   end
 end
