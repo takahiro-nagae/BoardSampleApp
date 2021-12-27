@@ -5,7 +5,5 @@
     // ユーザ名
     name: string;
     // カテゴリ名
-    mail: string;
-    // カテゴリ一覧更新function
-    updateCategories;
+    email: string;
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState, Fragment } from 'react';
 import * as ReactDOM from 'react-dom';
+import * as Modal from 'react-modal';
 import axios from 'axios';
 import { UserData } from './userData';
 
@@ -10,12 +11,32 @@ import { UserData } from './userData';
 export const Auth = (props) => {
     // ログインステータス
     const [loggedInStatus, setLoggedInStatus] = useState(false);
+    // モーダル
+    const [modalIsOpen,setIsOpen] = React.useState(false);
     // メール
     const [email, setEmail] = useState("");
     // パスワード
     const [password, setPassword] = useState("");
     // ユーザ情報
     const [user, setUser] = useState<UserData>();
+
+
+    // モーダルのスタイル
+    const customStyles = {
+        content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+        }
+    };
+
+    // モーダル表示
+    const openModal = () => setIsOpen(true);
+    // モーダル非表示
+    const closeModal = () => setIsOpen(false);
 
     // ================================
     // ログインボタン押下
@@ -31,10 +52,11 @@ export const Auth = (props) => {
             },
             { withCredentials: true }
         ).then(res => {
+            closeModal();
             setLoginInfo(res.data.user, true);
         })
         .catch(error => {
-            // サーバサイドバリデーションをレンダリング
+            closeModal();
             console.log(error.response);
         });
     }
@@ -88,28 +110,32 @@ export const Auth = (props) => {
 
     return(
         <>
-        <div>
-            { loggedInStatus &&
-                <>
-                    <span>{user.name}</span>
-                    <span>{user.mail}</span>
-                </>
-            }
-        </div>
-        <form onSubmit={handleSubmit} id='regist' className='mb-5'>
-            <div className='form-group'>
-                <label htmlFor='email'>メールアドレス</label>
-                <input type='email' className='form-control' id='email' name='email' value={email} onChange={event => setEmail(event.target.value)} />
-                <label htmlFor='password'>パスワード</label>
-                <input type='password' className='form-control' id='password' name='password' value={password} onChange={event => setPassword(event.target.value)} />
+            <div>
+                { loggedInStatus &&
+                    <>
+                        <span>{user.name}</span>
+                        <span>{user.email}</span>
+                    </>
+                }
             </div>
-            <button type='submit' className='btn btn-success'>ログイン</button>
-        </form>
-        { loggedInStatus &&
-                <>
-                    <button type='button' className='btn btn-secondry' onClick={handleLogout}>ログアウト</button>
-                </>
+            { !loggedInStatus && <button type='submit' className='btn btn-success' onClick={openModal}>ログイン</button>}
+            { loggedInStatus &&
+                    <>
+                        <button type='button' className='btn btn-secondry' onClick={handleLogout}>ログアウト</button>
+                    </>
             }
+            <Modal isOpen={modalIsOpen} style={customStyles}>
+                <form onSubmit={handleSubmit} id='regist' className='mb-5'>
+                    <div className='form-group'>
+                        <label htmlFor='email'>メールアドレス</label>
+                        <input type='email' className='form-control' id='email' name='email' value={email} onChange={event => setEmail(event.target.value)} />
+                        <label htmlFor='password'>パスワード</label>
+                        <input type='password' className='form-control' id='password' name='password' value={password} onChange={event => setPassword(event.target.value)} />
+                    </div>
+                    <button className="mr-2 btn btn-secondry" onClick={closeModal}>キャンセル</button>
+                    <button type='submit' className='btn btn-success'>ログイン</button>
+                </form>
+            </Modal>
         </>
     );
 };
