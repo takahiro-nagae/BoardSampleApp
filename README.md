@@ -14,6 +14,8 @@ Things you may want to cover:
 * Database creation
 
 * Database initialization
+rails cを実施し、下記コマンドを流す。
+User.create(name: "admin", email:"test@test.com", password:"admin", password_confirmation:"admin")
 
 * How to run the test suite
 

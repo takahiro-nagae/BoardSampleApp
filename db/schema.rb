@@ -10,19 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_044620) do
-
-  create_table "accounts", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_accounts_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
-  end
+ActiveRecord::Schema.define(version: 2021_12_27_073507) do
 
   create_table "categories", primary_key: "category_id", id: { limit: 4 }, force: :cascade do |t|
     t.string "category_name", limit: 512, null: false
@@ -39,6 +27,15 @@ ActiveRecord::Schema.define(version: 2021_12_27_044620) do
     t.string "subject", limit: 256
     t.string "text", limit: 10000, null: false
     t.datetime "post_date", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end
