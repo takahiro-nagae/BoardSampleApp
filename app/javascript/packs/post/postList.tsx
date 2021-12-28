@@ -14,30 +14,22 @@ import { PostForm } from './postForm';
  * 投稿一覧コンポーネント
  ****************************************/
 export const PostList = (props) => {
-    // ユーザ情報
-    const {loggedInStatus, loginUser} = props;
+    // props
+    const {loggedInStatus, loginUser, setTitle} = props;
     //投稿のstate
     const [posts, setPosts] = useState<PostData[]>([]);
     const [clientIp, setClientIp] = useState('');
 
     const query = queryString.parse(useLocation().search);
 
-    // タイトルをカテゴリ名に変更
-    document.getElementById('title').innerHTML=query['category_name'];
-
-    // ================================
-    // クライアントIP取得
-    // ================================
     useEffect(() => {
+        // タイトルをカテゴリ名に変更
+        setTitle(query['category_name']);
+        // クライアントIP取得
         axios.get('https://geolocation-db.com/json/').then((res) => {
             setClientIp(res.data.IPv4);
         });
-    }, []);
-
-    // ================================
-    // 投稿一覧を取得
-    // ================================
-    useEffect(() => {
+        // 投稿一覧を取得
         axios.get<PostData[]>('http://localhost:3000/post/getPostData?category_id=' + query['category_id']).then((res) => {
             setPosts(res.data);
         });
