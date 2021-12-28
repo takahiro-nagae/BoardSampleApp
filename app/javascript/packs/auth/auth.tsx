@@ -49,14 +49,13 @@ export const Auth = (props) => {
             },
             { withCredentials: true }
         ).then(res => {
-            if(res.data.error_message == undefined) {
-                formReset();
-                closeModal();
-                setLoginInfo(res.data.user, true);
-            } else {
+            if(res.data.status == 401) {
                 setErrorMessage(res.data.error_message);
+                return;
             }
-
+            formReset();
+            closeModal();
+            setLoginInfo(res.data.user, true);
         })
         .catch(error => {
             closeModal();
