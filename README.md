@@ -14,8 +14,10 @@ Things you may want to cover:
 * Database creation
 
 * Database initialization
-rails cを実施し、下記コマンドを流す。
-User.create(name: "admin", email:"test@test.com", password:"admin", password_confirmation:"admin")
+# 開発系
+ rake db:reset
+# テスト系
+bundle exec rake db:reset RAILS_ENV=test
 
 * How to run the test suite
 
