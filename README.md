@@ -7,11 +7,11 @@ Things you may want to cover:
 
 # アーキテクチャ
 * フロントエンド
-- React 17.0.2
-- Typescript 4.5.4
+React 17.0.2
+Typescript 4.5.4
 * バックエンド
-- Ruby 2.6.9
-- Rails 6.1.4.4
+Ruby 2.6.9
+Rails 6.1.4.4
 
 # データベース初期化
 * 開発系
