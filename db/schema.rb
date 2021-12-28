@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_27_073507) do
+ActiveRecord::Schema.define(version: 2021_12_28_143550) do
 
-  create_table "categories", primary_key: "category_id", id: { limit: 4 }, force: :cascade do |t|
+  create_table "categories", primary_key: "category_id", force: :cascade do |t|
     t.string "category_name", limit: 512, null: false
     t.string "deleted_flag", limit: 1
   end
