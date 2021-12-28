@@ -13,14 +13,12 @@ import { CategoryForm } from './categoryForm';
  ****************************************/
 export const CategoryList = (props) => {
     // ユーザ情報
-    const {loggedInStatus} = props;
+    const {loggedInStatus, setTitle} = props;
     // カテゴリのstate
     const [categories, setCategories] = useState<CategoryData[]>([]);
 
-    // タイトルを変更
-    document.getElementById('title').innerHTML="トピックス一覧";
-
     useEffect(() => {
+        setTitle('トピックス一覧');
         axios.get<CategoryData[]>('http://localhost:3000/category/getCategories').then((res) => {
             setCategories(res.data);
         });

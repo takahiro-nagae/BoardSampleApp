@@ -9,15 +9,13 @@ import { UserData } from './userData';
  * 認証コンポーネント
  ****************************************/
 export const Auth = (props) => {
-    const {loggedInStatus, setLoggedInStatus, user, setUser} = props;
+    const {loggedInStatus, user, setLoginInfo} = props;
     // モーダル
     const [modalIsOpen,setIsOpen] = React.useState(false);
     // メール
     const [email, setEmail] = useState("");
     // パスワード
     const [password, setPassword] = useState("");
-
-
 
     // モーダルのスタイル
     const customStyles = {
@@ -52,6 +50,7 @@ export const Auth = (props) => {
         ).then(res => {
             closeModal();
             setLoginInfo(res.data.user, true);
+            formReset();
         })
         .catch(error => {
             closeModal();
@@ -65,8 +64,7 @@ export const Auth = (props) => {
     const handleLogout = () => {
         axios.delete("http://localhost:3000/logout", { withCredentials: true })
         .then(res => {
-            setLoggedInStatus(false);
-            setUser(undefined);
+            setLoginInfo(undefined, false);
             formReset();
         }).catch(error => {
             console.log("ログアウトエラー", error);
@@ -92,23 +90,11 @@ export const Auth = (props) => {
         })
     }
 
-    /**
-     * ユーザ情報を設定
-     * @module setLoginInfo
-     * @param {UserData} data - ユーザ情報
-     * @param {boolean} state - ログインステータス
-     */
-    const setLoginInfo = (data: UserData, state: boolean) => {
-        setUser(data);
-        setLoggedInStatus(state);
-        formReset();
-    }
-
     const formReset = () => document.forms['regist'].reset();
 
     return(
         <>
-            <div>
+            <div className='mx-4'>
                 { loggedInStatus &&
                     <>
                         <span>{user.name}</span>
