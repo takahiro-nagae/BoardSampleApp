@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState, Fragment } from 'react';
-import * as ReactDOM from 'react-dom';
 import * as Modal from 'react-modal';
 import axios from 'axios';
-import { UserData } from './userData';
 
 /****************************************
  * 認証コンポーネント
@@ -13,9 +11,11 @@ export const Auth = (props) => {
     // モーダル
     const [modalIsOpen,setIsOpen] = React.useState(false);
     // メール
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState('');
     // パスワード
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState('');
+    // ログインエラーメッセージ
+    const [errorMessage, setErrorMessage] = useState('');
 
     // モーダルのスタイル
     const customStyles = {
@@ -39,6 +39,7 @@ export const Auth = (props) => {
     // ================================
     const handleSubmit = (e) => {
         e.preventDefault();
+        setErrorMessage('');
         axios.post('http://localhost:3000/login',
             {
                 user: {
@@ -48,9 +49,14 @@ export const Auth = (props) => {
             },
             { withCredentials: true }
         ).then(res => {
-            closeModal();
-            setLoginInfo(res.data.user, true);
-            formReset();
+            if(res.data.error_message == undefined) {
+                formReset();
+                closeModal();
+                setLoginInfo(res.data.user, true);
+            } else {
+                setErrorMessage(res.data.error_message);
+            }
+
         })
         .catch(error => {
             closeModal();
@@ -65,12 +71,10 @@ export const Auth = (props) => {
         axios.delete("http://localhost:3000/logout", { withCredentials: true })
         .then(res => {
             setLoginInfo(undefined, false);
-            formReset();
         }).catch(error => {
             console.log("ログアウトエラー", error);
         })
     }
-
 
     useEffect(() => {
         checkLoginStatus();
@@ -90,7 +94,10 @@ export const Auth = (props) => {
         })
     }
 
-    const formReset = () => document.forms['regist'].reset();
+    const formReset = () => {
+        setEmail('');
+        setPassword('');
+    }
 
     return(
         <>
@@ -115,6 +122,7 @@ export const Auth = (props) => {
                         <input type='email' className='form-control' id='email' name='email' value={email} onChange={event => setEmail(event.target.value)} />
                         <label htmlFor='password'>パスワード</label>
                         <input type='password' className='form-control' id='password' name='password' value={password} onChange={event => setPassword(event.target.value)} />
+                        <span className='text-danger'>{errorMessage}</span>
                     </div>
                     <button className="mr-2 btn btn-secondry" onClick={closeModal}>キャンセル</button>
                     <button type='submit' className='btn btn-success'>ログイン</button>

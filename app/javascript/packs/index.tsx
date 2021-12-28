@@ -36,7 +36,7 @@ export const App = () => {
             <header className="d-flex justify-content-between align-items-start">
                 <h1 id="title" className="my-5 display-4 text-primary">{titile}</h1>
                 <div id="auth" className="my-5 d-flex justify-content-between align-items-start">
-                    <Auth loggedInStatus={loggedInStatus} user={user} setLoginInfo={() => setLoginInfo} />
+                    <Auth loggedInStatus={loggedInStatus} user={user} setLoginInfo={setLoginInfo} />
                 </div>
             </header>
             <BrowserRouter>

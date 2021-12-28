@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
           login!
           render json: { logged_in: true, user: @user }
       else
-          render json: { status: 401, errors: ['認証に失敗しました。', '正しいメールアドレス・パスワードを入力し直すか、新規登録を行ってください。'] }
+          render json: { status: 401, error_message: 'メールアドレスまたはパスワードが異なります。' }
       end
   end
 
