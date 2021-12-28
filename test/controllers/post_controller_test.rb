@@ -6,8 +6,8 @@ class PostControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get getPostData" do
-    get post_getPostData_url
+  test "should get getPost" do
+    get post_getPost_url
     assert_response :success
   end
 end

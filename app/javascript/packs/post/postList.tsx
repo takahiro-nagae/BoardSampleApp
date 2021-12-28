@@ -29,7 +29,7 @@ export const PostList = (props) => {
             setClientIp(res.data.IPv4);
         });
         // 投稿一覧を取得
-        axios.get<PostData[]>('http://localhost:3000/post/getPostData?category_id=' + query['category_id']).then((res) => {
+        axios.get<PostData[]>('http://localhost:3000/post/get?category_id=' + query['category_id']).then((res) => {
             setPosts(res.data);
         });
     }, []);

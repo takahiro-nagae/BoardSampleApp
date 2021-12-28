@@ -18,7 +18,7 @@ export const CategoryList = (props) => {
 
     useEffect(() => {
         setTitle('トピックス一覧');
-        axios.get<CategoryData[]>('http://localhost:3000/category/getCategories').then((res) => {
+        axios.get<CategoryData[]>('http://localhost:3000/category/get').then((res) => {
             setCategories(res.data);
         });
     }, []);
