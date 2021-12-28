@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useEffect, useState, Fragment } from 'react';
-import * as ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import { CategoryData } from './categoryData';

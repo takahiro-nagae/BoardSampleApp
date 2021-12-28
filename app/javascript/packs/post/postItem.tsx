@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { csrfToken } from 'rails-ujs';
 import axios from 'axios'
 import { PostData } from './postData'
