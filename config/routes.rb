@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # 投稿のトップページ
   get 'post/index'
   # 投稿一覧を取得
-  get 'post/getPostData'
+  get 'post/get'
   # -- post --
   # 新規投稿
   post 'post/regist'
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # ============================
   # -- get --
   # カテゴリ一覧を取得
-  get 'category/getCategories'
+  get 'category/get'
   # -- post --
   # カテゴリを登録
   post 'category/regist'
@@ -32,11 +32,13 @@ Rails.application.routes.draw do
    # -- get --
    # トップページ
   get 'board/index'
-
   # ============================
   # 認証
   # ============================
+  # ログイン
   post '/login', to: 'sessions#login'
+  # ログアウト
   delete '/logout', to: 'sessions#logout'
+  # ログイン確認
   get '/logged_in', to: 'sessions#logged_in?'
 end

@@ -2,7 +2,7 @@ class PostController < ApplicationController
   def index
   end
 
-  def getPostData
+  def get
     if params['category_id'] != nil then
       getCategoryPostData(params['category_id'])
     else
@@ -57,7 +57,8 @@ class PostController < ApplicationController
     end
   end
 
-  def getCategoryPostData(category_id)
-    render plain:  Post.where(category_id: category_id).to_json
-  end
+  private
+    def getCategoryPostData(category_id)
+      render plain:  Post.where(category_id: category_id).to_json
+    end
 end
