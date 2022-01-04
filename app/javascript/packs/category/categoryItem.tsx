@@ -9,12 +9,10 @@ import { CategoryData } from './categoryData';
 /****************************************
  * カテゴリの各行データコンポーネント
  ****************************************/
-export const CategoryItem = (props: CategoryData) => {
-  // カテゴリ
-  const {category_id, category_name, updateCategories, loggedInStatus} = props;
-  // モーダル
+export const CategoryItem = (props: {categoryData: CategoryData, updateCategories: any, loggedInStatus: boolean}) => {
+  /** モーダル */
   const [modalIsOpen,setIsOpen] = React.useState(false);
-  // カテゴリ名編集
+  /** カテゴリ名編集 */
   const [newCategoryName, setNewCategoryName] = React.useState('');
 
   const onNeCategoryChange = (e) => setNewCategoryName(e.target.value);
@@ -25,13 +23,13 @@ export const CategoryItem = (props: CategoryData) => {
   const deleteCategory = () => {
 
     let fd = new FormData();
-    fd.append('category_id', category_id);
+    fd.append('category_id', props.categoryData.category_id);
 
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken();
     axios.post('http://localhost:3000/category/delete', fd)
     .then(res => {
         // カテゴリList更新
-        updateCategories(res.data);
+        props.updateCategories(res.data);
     })
     .catch(error => console.log(error))
   }
@@ -59,14 +57,14 @@ export const CategoryItem = (props: CategoryData) => {
   const editCategory = () => {
 
     let fd = new FormData();
-    fd.append('category_id', category_id);
+    fd.append('category_id', props.categoryData.category_id);
     fd.append('category_name', newCategoryName);
 
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken();
     axios.post('http://localhost:3000/category/edit', fd)
     .then(res => {
         // カテゴリList更新
-        updateCategories(res.data);
+        props.updateCategories(res.data);
         closeModal();
         setNewCategoryName('');
     })
@@ -76,9 +74,9 @@ export const CategoryItem = (props: CategoryData) => {
   return(
     <>
       <div className='list-group-item d-flex justify-content-between align-items-start'>
-        <Link to={'/post/index?category_id=' + category_id +'&category_name=' + category_name} >{category_name}</Link>
+        <Link to={'/post/index?category_id=' + props.categoryData.category_id +'&category_name=' + props.categoryData.category_name} >{props.categoryData.category_name}</Link>
         <div>
-          { loggedInStatus &&
+          { props.loggedInStatus &&
             <>
               <button className='mx-2 btn btn-primary' onClick={openModal}>編集</button>
               <button type='button' onClick={deleteCategory} className='mx-2 btn btn-danger'>削除</button>
@@ -88,7 +86,7 @@ export const CategoryItem = (props: CategoryData) => {
         </div>
       </div>
       <Modal isOpen={modalIsOpen} style={customStyles}>
-            <h2>{category_name}</h2>
+            <h2>{props.categoryData.category_name}</h2>
             <input type='text' className='form-control' id='new_category_name' name='new_category_name' onChange={onNeCategoryChange} value={newCategoryName} />
             <div className='my-2 text-right'>
               <button className="mr-2 btn btn-secondry" onClick={closeModal}>キャンセル</button>
