@@ -35,7 +35,7 @@ export const CategoryList = (props) => {
         <>
             <div className='my-5 list-group'>
                 {categories.map(category => (
-                    <CategoryItem category_id={category.category_id} category_name={category.category_name} updateCategories={updateCategories} key={category.category_id} loggedInStatus={loggedInStatus} />
+                    <CategoryItem categoryData={category} updateCategories={updateCategories} key={category.category_id} loggedInStatus={loggedInStatus} />
             ))}
             </div>
             { loggedInStatus &&

@@ -8,16 +8,16 @@ import axios from 'axios';
  ****************************************/
 export const Auth = (props) => {
     const {loggedInStatus, user, setLoginInfo} = props;
-    // モーダル
+    /** モーダル */
     const [modalIsOpen,setIsOpen] = React.useState(false);
-    // メール
+    /** メール */
     const [email, setEmail] = useState('');
-    // パスワード
+    /** パスワード */
     const [password, setPassword] = useState('');
-    // ログインエラーメッセージ
+    //** ログインエラー */
     const [errorMessage, setErrorMessage] = useState('');
 
-    // モーダルのスタイル
+    /** モーダルのスタイル */
     const customStyles = {
         content : {
         top                   : '50%',

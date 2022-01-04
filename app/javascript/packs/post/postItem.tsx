@@ -8,9 +8,7 @@ import '../../../assets/stylesheets/post.scss'
 /****************************************
  * 投稿一覧の各行データコンポーネント
  ****************************************/
-export const PostItem = (props: PostData) => {
-
-  const {post_id, category_id, hide_flag, ip, name, subject, text, post_date, clientIp, updatePosts, loggedInStatus} = props;
+export const PostItem = (props: {postData: PostData, updatePosts: any, loggedInStatus: boolean}) => {
 
   // ================================
   // 投稿削除（非表示）イベント
@@ -18,14 +16,14 @@ export const PostItem = (props: PostData) => {
   const deletePost = () => {
 
     let fd = new FormData();
-    fd.append('category_id', category_id);
-    fd.append('post_id', post_id.toString());
+    fd.append('category_id', props.postData.category_id);
+    fd.append('post_id', props.postData.post_id.toString());
 
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken();
     axios.post('http://localhost:3000/post/delete', fd)
     .then(res => {
         // postList更新
-        updatePosts(res.data);
+        props.updatePosts(res.data);
         // formを初期化
         document.forms['postForm'].reset();
     })
@@ -34,23 +32,23 @@ export const PostItem = (props: PostData) => {
 
   return(
     <>
-      { (hide_flag == '0' || loggedInStatus) &&
+      { (props.postData.hide_flag == '0' || props.loggedInStatus) &&
         <li className='list-group-item'>
           <p className='text-muted'>
             <u>
-              <span>{post_id} :{name}　{subject}　{post_date}</span>
+              <span>{props.postData.post_id} :{props.postData.name}　{props.postData.subject}　{props.postData.post_date}</span>
               {
-                (hide_flag == '1' && loggedInStatus) &&
+                (props.postData.hide_flag == '1' && props.loggedInStatus) &&
                 <span className='text-danger'>　削除済み</span>
               }
             </u>
           </p>
           <div className='d-flex justify-content-between align-items-start'>
-            <p className='white-space'>{text}</p>
-            { (ip == clientIp || loggedInStatus) &&
+            <p className='white-space'>{props.postData.text}</p>
+            { (props.postData.ip == props.postData.clientIp || props.loggedInStatus) &&
               <>
                 <div className='text-right'>
-                <button type='button' onClick={deletePost} className={'btn btn-danger' + ' delete' + post_id}>削除</button>
+                <button type='button' onClick={deletePost} className={'btn btn-danger' + ' delete' + props.postData.post_id}>削除</button>
                 </div>
               </>
             }

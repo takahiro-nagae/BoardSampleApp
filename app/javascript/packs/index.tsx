@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { useEffect, useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { CategoryList } from './category/categoryList'
 import { PostList } from './post/postList'
@@ -8,11 +8,11 @@ import { Auth } from './auth/auth';
 import { UserData } from './auth/userData';
 
 export const App = () => {
-    // ログインステータス
+    /** ログインステータス */
     const [loggedInStatus, setLoggedInStatus] = useState(false);
-    // ユーザ情報
+    /** ユーザ情報 */
     const [user, setUser] = useState<UserData>();
-    // 画面タイトル
+    /** 画面タイトル */
     const [titile, setTitle] = useState('');
 
     /**
