@@ -13,22 +13,23 @@
 ActiveRecord::Schema.define(version: 2021_12_27_073507) do
 
   create_table "categories", force: :cascade do |t|
-    t.integer "category_id", null: false
-    t.text "category_name", null: false
-    t.string "deleted_flg", null: false
+    t.integer "category_id", limit: 4, null: false
+    t.text "category_name", limit: 512, null: false
+    t.string "deleted_flg", limit: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "category_id", null: false
-    t.string "hide_flag"
-    t.string "ip", null: false
-    t.string "name"
-    t.string "mail"
-    t.string "subject"
-    t.text "text", null: false
+    t.integer "post_id", limit: 4, null: false
+    t.integer "category_id", limit: 4, null: false
+    t.string "hide_flag", limit: 1
+    t.string "ip", limit: 20, null: false
+    t.string "name", limit: 256
+    t.string "mail", limit: 256
+    t.string "subject", limit: 256
+    t.text "text", limit: 256, null: false
+    t.datetime "post_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
