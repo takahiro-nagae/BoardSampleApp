@@ -10,23 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_143550) do
+ActiveRecord::Schema.define(version: 2021_12_27_073507) do
 
-  create_table "categories", primary_key: "category_id", force: :cascade do |t|
-    t.string "category_name", limit: 512, null: false
-    t.string "deleted_flag", limit: 1
+  create_table "categories", force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.text "category_name", null: false
+    t.string "deleted_flg", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "posts", primary_key: ["post_id", "category_id"], force: :cascade do |t|
-    t.integer "post_id", limit: 4, null: false
-    t.integer "category_id", limit: 4, null: false
-    t.string "hide_flag", limit: 1
-    t.string "ip", limit: 20, null: false
-    t.string "name", limit: 256
-    t.string "mail", limit: 256
-    t.string "subject", limit: 256
-    t.string "text", limit: 10000, null: false
-    t.datetime "post_date", null: false
+  create_table "posts", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "category_id", null: false
+    t.string "hide_flag"
+    t.string "ip", null: false
+    t.string "name"
+    t.string "mail"
+    t.string "subject"
+    t.text "text", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
