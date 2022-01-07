@@ -7,6 +7,11 @@ RSpec.describe CategoryController, type: :controller do
       json = JSON.parse(response.body)
       expect(response.status).to eq(200)
     end
+    it "投稿件数確認" do
+      get 'postCount', params: {id: 1}
+      json = JSON.parse(response.body)
+      expect(response.status).to eq(200)
+    end
   end
   describe "PostAPI" do
     it "カテゴリデータを登録" do
