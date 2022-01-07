@@ -31,6 +31,16 @@ export const PostList = (props) => {
             setClientIp(res.data.IPv4);
         });
         // 投稿一覧を取得
+        getPostList();
+    }, []);
+
+    // ログイン状態が変化したら投稿一覧を再取得
+    useEffect(() => {
+        getPostList();
+    }, [loggedInStatus]);
+
+    const getPostList = () => {
+        // 投稿一覧を取得
         axios.get<PostData[]>('http://localhost:3000/post/get?category_id=' + query['category_id'])
         .then((res) => {
             setPosts(res.data);
@@ -43,7 +53,8 @@ export const PostList = (props) => {
                 );
             }
         })
-    }, []);
+    }
+
 
     // ================================
     // 子コンポーネントから投稿を再設定
@@ -61,8 +72,7 @@ export const PostList = (props) => {
                 <div className='py-5'>
                     <ul className='list-group'>
                         {posts.map(post => (
-                            <PostItem postData={post} updatePosts={updatePosts}
-                            loggedInStatus={loggedInStatus} key={post.id} />
+                            <PostItem postData={post} clientIp={clientIp} updatePosts={updatePosts} key={post.id} />
                         ))}
                     </ul>
                 </div>
