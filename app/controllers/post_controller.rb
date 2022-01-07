@@ -11,17 +11,11 @@ class PostController < ApplicationController
   end
 
   def regist
-    # ============================
-    # 現在の投稿番号の最大値
-    # ============================
-    maxPostNo = Post.where(category_id: params['category_id']).maximum(:post_id)
-    maxPostNo = maxPostNo == nil ? 1 : maxPostNo + 1
 
     # ============================
     # 投稿データの登録
     # ============================
     postData = Post.create(
-      post_id: maxPostNo,
       category_id: params['category_id'],
       hide_flag: '0',
       ip: params['ip'],
@@ -29,7 +23,6 @@ class PostController < ApplicationController
       mail: params['mail'],
       subject: params['subject'],
       text: params['text'],
-      post_date: Time.now
     )
 
     # ============================
@@ -48,7 +41,7 @@ class PostController < ApplicationController
     # ============================
     # データの返却（削除処理同時実施）
     # ============================
-    if Post.where(category_id: params['category_id'], post_id: params['post_id']).update_all(hide_flag: '1') then
+    if Post.find(params['id']).update(hide_flag: '1') then
       # 更新データの返却
       getCategoryPostData(params['category_id'])
     else

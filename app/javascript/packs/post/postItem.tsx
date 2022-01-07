@@ -17,7 +17,7 @@ export const PostItem = (props: {postData: PostData, updatePosts: any, loggedInS
 
     let fd = new FormData();
     fd.append('category_id', props.postData.category_id);
-    fd.append('post_id', props.postData.post_id.toString());
+    fd.append('id', props.postData.id.toString());
 
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken();
     axios.post('http://localhost:3000/post/delete', fd)
@@ -36,7 +36,7 @@ export const PostItem = (props: {postData: PostData, updatePosts: any, loggedInS
         <li className='list-group-item'>
           <p className='text-muted'>
             <u>
-              <span>{props.postData.post_id} :{props.postData.name}　{props.postData.subject}　{props.postData.post_date}</span>
+              <span>{props.postData.name}　{props.postData.subject}　{props.postData.created_at}</span>
               {
                 (props.postData.hide_flag == '1' && props.loggedInStatus) &&
                 <span className='text-danger'>　削除済み</span>
@@ -48,7 +48,7 @@ export const PostItem = (props: {postData: PostData, updatePosts: any, loggedInS
             { (props.postData.ip == props.postData.clientIp || props.loggedInStatus) &&
               <>
                 <div className='text-right'>
-                <button type='button' onClick={deletePost} className={'btn btn-danger' + ' delete' + props.postData.post_id}>削除</button>
+                <button type='button' onClick={deletePost} className={'btn btn-danger' + ' delete' + props.postData.id}>削除</button>
                 </div>
               </>
             }

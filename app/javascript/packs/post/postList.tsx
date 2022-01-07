@@ -50,7 +50,7 @@ export const PostList = (props) => {
             <div className='py-5'>
                 <ul className='list-group'>
                     {posts.map(post => (
-                        <PostItem postData={post} updatePosts={updatePosts} loggedInStatus={loggedInStatus} key={post.post_id} />
+                        <PostItem postData={post} updatePosts={updatePosts} loggedInStatus={loggedInStatus} key={post.id} />
                     ))}
                 </ul>
             </div>

@@ -3,7 +3,7 @@
  ****************************************/
 export class PostData {
   /** ポストID */
-  post_id: number;
+  id: number;
   /** カテゴリID */
   category_id: string;
   /** 非表示フラグ */
@@ -19,7 +19,7 @@ export class PostData {
   /** 本文 */
   text: string;
   /** 投稿日時 */
-  post_date: Date;
+  created_at: Date;
   /** クライアントIPアドレス */
   clientIp: string;
 }

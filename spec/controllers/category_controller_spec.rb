@@ -16,15 +16,15 @@ RSpec.describe CategoryController, type: :controller do
     it "カテゴリデータを削除" do
       post 'delete', params: { category_id: 1 }
       expect(response.status).to eq(200)
-      expect(Category.find_by(category_id: 1).deleted_flag).to eq('1')
+      expect(Category.find(1).deleted_flag).to eq('1')
     end
     it "カテゴリデータを編集" do
-      category_id = 1
+      id = 1
       category_name = 'カテゴリ名編集'
-      post 'edit', params: { category_id: category_id, category_name: category_name}
+      post 'edit', params: { category_id: id, category_name: category_name}
       expect(response.status).to eq(200)
-      expect(Category.find_by(category_id: 1).category_id).to eq(category_id)
-      expect(Category.find_by(category_id: 1).category_name).to eq(category_name)
+      expect(Category.find(1).id).to eq(id)
+      expect(Category.find(1).category_name).to eq(category_name)
     end
   end
 end

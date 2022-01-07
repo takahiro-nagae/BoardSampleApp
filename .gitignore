@@ -6,6 +6,7 @@ Gemfile.lock
 *.rbc
 capybara-*.html
 .rspec
+.DS_Store
 /log
 /tmp
 /db/*.sqlite3
