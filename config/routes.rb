@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   # -- get --
   # カテゴリ一覧を取得
   get 'category/get'
+  get 'category/postCount'
   # -- post --
   # カテゴリを登録
   post 'category/regist'

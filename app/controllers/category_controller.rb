@@ -3,6 +3,13 @@ class CategoryController < ApplicationController
     getCategory
   end
 
+  def postCount
+    # ============================
+    # 投稿数確認
+    # ============================
+    render plain:Post.where(category_id: params['id'], hide_flag: '0').count.to_json
+  end
+
   def regist
 
     # ============================
