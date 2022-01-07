@@ -4,17 +4,11 @@ class CategoryController < ApplicationController
   end
 
   def regist
-    # ============================
-    # 現在のカテゴリIDの最大値
-    # ============================
-    maxCategoryId = Category.all.maximum(:category_id)
-    maxCategoryId = maxCategoryId == nil ? 1 : maxCategoryId + 1
 
     # ============================
     # 投稿データの登録
     # ============================
     categoryData = Category.create(
-      category_id: maxCategoryId,
       category_name: params['category_name'],
       deleted_flag: '0'
     )
@@ -35,7 +29,7 @@ class CategoryController < ApplicationController
     # ============================
     # データの返却（削除処理同時実施）
     # ============================
-    if Category.where(category_id: params['category_id']).update_all(deleted_flag: '1') then
+    if Category.find(params['category_id']).update(deleted_flag: '1') then
       # 更新データの返却
       getCategory
     else
@@ -48,7 +42,7 @@ class CategoryController < ApplicationController
     # ============================
     # データの返却（編集処理同時実施）
     # ============================
-    if Category.where(category_id: params['category_id']).update_all(category_name: params['category_name']) then
+    if Category.find(params['category_id']).update(category_name: params['category_name']) then
       # 更新データの返却
       getCategory
     else

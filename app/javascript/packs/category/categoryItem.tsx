@@ -23,7 +23,7 @@ export const CategoryItem = (props: {categoryData: CategoryData, updateCategorie
   const deleteCategory = () => {
 
     let fd = new FormData();
-    fd.append('category_id', props.categoryData.category_id);
+    fd.append('category_id', props.categoryData.id.toString());
 
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken();
     axios.post('http://localhost:3000/category/delete', fd)
@@ -57,7 +57,7 @@ export const CategoryItem = (props: {categoryData: CategoryData, updateCategorie
   const editCategory = () => {
 
     let fd = new FormData();
-    fd.append('category_id', props.categoryData.category_id);
+    fd.append('category_id', props.categoryData.id.toString());
     fd.append('category_name', newCategoryName);
 
     axios.defaults.headers.common['X-CSRF-Token'] = csrfToken();
@@ -74,7 +74,7 @@ export const CategoryItem = (props: {categoryData: CategoryData, updateCategorie
   return(
     <>
       <div className='list-group-item d-flex justify-content-between align-items-start'>
-        <Link to={'/post/index?category_id=' + props.categoryData.category_id +'&category_name=' + props.categoryData.category_name} >{props.categoryData.category_name}</Link>
+        <Link to={'/post/index?category_id=' + props.categoryData.id +'&category_name=' + props.categoryData.category_name} >{props.categoryData.category_name}</Link>
         <div>
           { props.loggedInStatus &&
             <>

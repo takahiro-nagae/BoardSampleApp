@@ -3,7 +3,7 @@
  ****************************************/
 export class CategoryData {
     /** カテゴリID */
-    category_id: string;
+    id: number;
     /** カテゴリ名 */
     category_name: string;
 }

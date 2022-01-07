@@ -1,19 +1,5 @@
 class Post < ApplicationRecord
     # ============================
-    # validate:post_id
-    # ============================
-    # 必須項目
-    validates :post_id, presence: { message: "投稿処理が失敗しました。ページを更新して再度お試しください。" }
-    # 最大桁数：4
-    validates :post_id, length: {maximum: 4, message: "投稿処理が失敗しました。ページを更新して再度お試しください。" }
-    # ============================
-    # validate:category_id
-    # ============================
-    # 必須項目
-    validates :category_id, presence: { message: "投稿処理が失敗しました。ページを更新して再度お試しください。" }
-    # 最大桁数:8
-    validates :category_id, length: {maximum: 8, message: "投稿処理が失敗しました。ページを更新して再度お試しください。"}
-    # ============================
     # validate:ip
     # ============================
     # 必須項目
@@ -42,9 +28,4 @@ class Post < ApplicationRecord
     validates :text, presence: { message: "本文は必須です" }
     # 最大桁数:10000
     validates :text, length: {maximum:10000, message: "本文は10000文字以内で入力してください"}
-    # ============================
-    # validate:post_date
-    # ============================
-    # 必須項目
-    validates :post_date, presence: { message: "投稿処理が失敗しました。ページを更新して再度お試しください。" }
 end
