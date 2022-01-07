@@ -7,9 +7,14 @@ RSpec.describe PostController, type: :controller do
         expect(response.status).to eq(200)
       end
     it "投稿データを取得" do
-      get 'get'
+      get 'get', params: {category_id: 1}
       json = JSON.parse(response.body)
       expect(response.status).to eq(200)
+    end
+    it "カテゴリデータを取得（アクセスエラー）" do
+      get 'get', params: {category_id: 3}
+      json = JSON.parse(response.body)
+      expect(response.status).to eq(422)
     end
   end
   describe "PostAPI" do
