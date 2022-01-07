@@ -21,7 +21,11 @@ class CategoryController < ApplicationController
       getCategory
     else
       # modelのバリデーション結果を返却
-      render json: { errors: postData.errors.keys.map { |key| [key, postData.errors.full_messages_for(key)]}.to_h, render: 'show.json.jbuilder' }, status: :unprocessable_entity
+      render json: {
+          errors: postData.errors.keys.map {
+            |key| [key, postData.errors.full_messages_for(key)]}.to_h,
+          render: 'show.json.jbuilder'
+         }, status: :unprocessable_entity
     end
   end
 
@@ -34,7 +38,11 @@ class CategoryController < ApplicationController
       getCategory
     else
       # modelのバリデーション結果を返却
-      render json: { errors: categoryData.errors.keys.map { |key| [key, categoryData.errors.full_messages_for(key)]}.to_h, render: 'show.json.jbuilder' }, status: :unprocessable_entity
+      render json: {
+          errors: categoryData.errors.keys.map {
+            |key| [key, categoryData.errors.full_messages_for(key)]}.to_h,
+          render: 'show.json.jbuilder'
+        }, status: :unprocessable_entity
     end
   end
 
@@ -47,7 +55,11 @@ class CategoryController < ApplicationController
       getCategory
     else
       # modelのバリデーション結果を返却
-      render json: { errors: categoryData.errors.keys.map { |key| [key, categoryData.errors.full_messages_for(key)]}.to_h, render: 'show.json.jbuilder' }, status: :unprocessable_entity
+      render json: {
+        errors: categoryData.errors.keys.map {
+          |key| [key, categoryData.errors.full_messages_for(key)]}.to_h,
+        render: 'show.json.jbuilder'
+      }, status: :unprocessable_entity
     end
   end
 

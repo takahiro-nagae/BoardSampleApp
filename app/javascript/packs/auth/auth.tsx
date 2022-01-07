@@ -118,9 +118,13 @@ export const Auth = (props) => {
                 <form onSubmit={handleSubmit} id='regist' className='mb-5'>
                     <div className='form-group'>
                         <label htmlFor='email'>メールアドレス</label>
-                        <input type='email' className='form-control' id='email' name='email' value={email} onChange={event => setEmail(event.target.value)} />
+                        <input type='email' className='form-control'
+                            id='email' name='email' value={email}
+                             onChange={event => setEmail(event.target.value)} />
                         <label htmlFor='password'>パスワード</label>
-                        <input type='password' className='form-control' id='password' name='password' value={password} onChange={event => setPassword(event.target.value)} />
+                        <input type='password' className='form-control'
+                         id='password' name='password' value={password}
+                          onChange={event => setPassword(event.target.value)} />
                         <span className='text-danger'>{errorMessage}</span>
                     </div>
                     <button className="mr-2 btn btn-secondry" onClick={closeModal}>キャンセル</button>

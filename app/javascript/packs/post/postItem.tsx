@@ -48,7 +48,8 @@ export const PostItem = (props: {postData: PostData, updatePosts: any, loggedInS
             { (props.postData.ip == props.postData.clientIp || props.loggedInStatus) &&
               <>
                 <div className='text-right'>
-                <button type='button' onClick={deletePost} className={'btn btn-danger' + ' delete' + props.postData.id}>削除</button>
+                <button type='button' onClick={deletePost}
+                className={'btn btn-danger' + ' delete' + props.postData.id}>削除</button>
                 </div>
               </>
             }

@@ -74,7 +74,8 @@ export const CategoryItem = (props: {categoryData: CategoryData, updateCategorie
   return(
     <>
       <div className='list-group-item d-flex justify-content-between align-items-start'>
-        <Link to={'/post/index?category_id=' + props.categoryData.id +'&category_name=' + props.categoryData.category_name} >{props.categoryData.category_name}</Link>
+        <Link to={'/post/index?category_id=' + props.categoryData.id +'&category_name='
+                  + props.categoryData.category_name} >{props.categoryData.category_name}</Link>
         <div>
           { props.loggedInStatus &&
             <>
@@ -87,7 +88,8 @@ export const CategoryItem = (props: {categoryData: CategoryData, updateCategorie
       </div>
       <Modal isOpen={modalIsOpen} style={customStyles}>
             <h2>{props.categoryData.category_name}</h2>
-            <input type='text' className='form-control' id='new_category_name' name='new_category_name' onChange={onNeCategoryChange} value={newCategoryName} />
+            <input type='text' className='form-control' id='new_category_name'
+             name='new_category_name' onChange={onNeCategoryChange} value={newCategoryName} />
             <div className='my-2 text-right'>
               <button className="mr-2 btn btn-secondry" onClick={closeModal}>キャンセル</button>
               <button className="mr-2 btn btn-primary" onClick={editCategory}>変更</button>
