@@ -49,7 +49,8 @@ import { CategoryData } from "./categoryData";
             <form onSubmit={handleSubmit(onSubmit)} id='categoryForm' className='mb-5'>
                 <div className='form-group'>
                     <label htmlFor='category_name'>カテゴリ名</label>
-                    <input type='text' className='form-control' id='category_name' name='category_name' {...register("category_name", { required: true, maxLength: 512 })} />
+                    <input type='text' className='form-control' id='category_name'
+                     name='category_name' {...register("category_name", { required: true, maxLength: 512 })} />
                     {errors.category_name?.types?.required && <span className='text-danger'>カテゴリ名は必須です</span>}
                     {errors.category_name?.types?.maxLength && <span className='text-danger'>カテゴリ名は512文字以内で入力してください</span>}
                 </div>
