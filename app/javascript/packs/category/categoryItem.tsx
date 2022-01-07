@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 
 import { CategoryData } from './categoryData';
+import { PostCount } from './postCount';
 
 /****************************************
  * カテゴリの各行データコンポーネント
@@ -76,15 +77,15 @@ export const CategoryItem = (props: {categoryData: CategoryData, updateCategorie
       <div className='list-group-item d-flex justify-content-between align-items-start'>
         <Link to={'/post/index?category_id=' + props.categoryData.id +'&category_name='
                   + props.categoryData.category_name} >{props.categoryData.category_name}</Link>
-        <div>
-          { props.loggedInStatus &&
-            <>
-              <button className='mx-2 btn btn-primary' onClick={openModal}>編集</button>
-              <button type='button' onClick={deleteCategory} className='mx-2 btn btn-danger'>削除</button>
-            </>
-          }
-
-        </div>
+        { props.loggedInStatus &&
+        <>
+          <PostCount id={props.categoryData.id} key={props.categoryData.id} />
+          <div>
+            <button className='mx-2 btn btn-primary' onClick={openModal}>編集</button>
+            <button type='button' onClick={deleteCategory} className='mx-2 btn btn-danger'>削除</button>
+          </div>
+        </>
+        }
       </div>
       <Modal isOpen={modalIsOpen} style={customStyles}>
             <h2>{props.categoryData.category_name}</h2>
