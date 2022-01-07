@@ -44,7 +44,7 @@ export const PostItem = (props: {postData: PostData, clientIp: string, updatePos
         </p>
         <div className='d-flex justify-content-between align-items-start'>
           <p className='white-space'>{props.postData.text}</p>
-          { props.postData.ip == props.clientIp &&
+          { props.postData.ip == props.clientIp && props.postData.hide_flag == '0' &&
             <>
               <div className='text-right'>
               <button type='button' onClick={deletePost}
