@@ -49,7 +49,7 @@ export const PostItem = (props: {postData: PostData, updatePosts: any, loggedInS
               <>
                 <div className='text-right'>
                 <button type='button' onClick={deletePost}
-                className={'btn btn-danger' + ' delete' + props.postData.id}>削除</button>
+                  className={'btn btn-danger' + ' delete' + props.postData.id}>削除</button>
                 </div>
               </>
             }

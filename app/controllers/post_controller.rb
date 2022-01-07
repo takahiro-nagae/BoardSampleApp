@@ -60,6 +60,19 @@ class PostController < ApplicationController
 
   private
     def getCategoryPostData(category_id)
+
+    # ============================
+    # カテゴリの削除チェック
+    # ============================
+    category = Category.find(category_id)
+
+    if category.deleted_flag == '1' then
+      render json: {
+        errors: "すでに削除されたカテゴリです。",
+        render: 'show.json.jbuilder'
+      }, status: :unprocessable_entity
+      return
+    end
       render plain:  Post.where(category_id: category_id).to_json
     end
 end
