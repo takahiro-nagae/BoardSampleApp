@@ -73,6 +73,10 @@ class PostController < ApplicationController
       }, status: :unprocessable_entity
       return
     end
-      render plain:  Post.where(category_id: category_id).to_json
+      if session[:user_id] then
+        render plain:  Post.where(category_id: category_id).to_json
+      else
+        render plain:  Post.where(category_id: category_id, hide_flag: '0').to_json
+      end
     end
 end

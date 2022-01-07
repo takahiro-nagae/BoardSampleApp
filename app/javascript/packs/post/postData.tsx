@@ -20,6 +20,4 @@ export class PostData {
   text: string;
   /** 投稿日時 */
   created_at: Date;
-  /** クライアントIPアドレス */
-  clientIp: string;
 }
