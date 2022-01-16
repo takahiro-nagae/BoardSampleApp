@@ -19,15 +19,12 @@ export const PostList = (props) => {
     const {loggedInStatus, loginUser, setTitle} = props;
     //投稿のstate
     const [posts, setPosts] = useState<PostData[]>([]);
-    const [clientIp, setClientIp] = useState('');
+    // uuid
+    const [uuid, setUuid] = useState('');
 
     const query = queryString.parse(useLocation().search);
 
     useEffect(() => {
-        // クライアントIP取得
-        axios.get('https://geolocation-db.com/json/').then((res) => {
-            setClientIp(res.data.IPv4);
-        });
         // 投稿一覧を取得
         getPostList();
     }, []);
@@ -43,6 +40,7 @@ export const PostList = (props) => {
         .then((res) => {
             setPosts(res.data.post);
             setTitle(res.data.category.category_name);
+            setUuid(res.data.uuid);
         })
         .catch(error => {
             if(error.response.status == 422) {
@@ -71,13 +69,12 @@ export const PostList = (props) => {
                 <div className='py-5'>
                     <ul className='list-group'>
                         {posts.map(post => (
-                            <PostItem postData={post} clientIp={clientIp} updatePosts={updatePosts} key={post.id} />
+                            <PostItem postData={post}　updatePosts={updatePosts} uuid={uuid} key={post.id} />
                         ))}
                     </ul>
                 </div>
                 {/* 投稿フォーム */}
-                <PostForm category_id={query['category_id']} updatePosts={updatePosts}
-                    clientIp={clientIp} loginUser={loginUser} />
+                <PostForm category_id={query['category_id']} updatePosts={updatePosts}　loginUser={loginUser} />
             </div>
         </>
     );
